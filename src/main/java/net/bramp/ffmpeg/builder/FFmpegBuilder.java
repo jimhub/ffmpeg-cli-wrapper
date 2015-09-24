@@ -42,6 +42,7 @@ public class FFmpegBuilder {
     // Input settings
     Long startOffset; // in millis
     String input;
+    List<String> inputs = new ArrayList<String>();
     FFmpegProbeResult inputProbe;
 
     // Output
@@ -68,6 +69,11 @@ public class FFmpegBuilder {
 
     public FFmpegBuilder setInput(String filename) {
         this.input = filename;
+        return this;
+    }
+
+    public FFmpegBuilder addInput(String fileName) {
+        this.inputs.add(fileName);
         return this;
     }
 
@@ -119,7 +125,13 @@ public class FFmpegBuilder {
             args.add("-ss").add(String.format("%.3f", startOffset / 1000f));
         }
 
-        args.add("-i").add(input);
+        if(input != null) {
+            args.add("-i").add(input);
+        } else {
+            for(String in : inputs) {
+                args.add("-i").add(in);
+            }
+        }
 
         if (pass > 0) {
             args.add("-pass").add(Integer.toString(pass));
