@@ -115,7 +115,7 @@ public class FFmpegBuilder {
     public List<String> build() {
         ImmutableList.Builder<String> args = new ImmutableList.Builder<String>();
 
-        Preconditions.checkArgument(input != null, "Input must be specified");
+        Preconditions.checkArgument(input != null || !inputs.isEmpty(), "Input must be specified");
         Preconditions.checkArgument(!outputs.isEmpty(), "At least one output must be specified");
 
         args.add(override ? "-y" : "-n");
