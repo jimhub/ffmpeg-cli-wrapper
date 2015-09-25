@@ -427,7 +427,7 @@ public class FFmpegOutputBuilder implements Cloneable {
 				args.add("-filter_complex").add(video_filter_complex);
 			}
 
-			if (video_frames > 0) {
+			if (video_frames != null) {
 				args.add("-vframes").add(video_frames.toString());
 			}
 
